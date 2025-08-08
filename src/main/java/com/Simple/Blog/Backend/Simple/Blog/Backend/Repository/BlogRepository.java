@@ -9,6 +9,6 @@ import javax.swing.plaf.basic.BasicLookAndFeel;
 
 public interface BlogRepository extends MongoRepository<Blog, ObjectId> {
     Blog deleteBYID(ObjectId id);
-    Blog findByUser(ObjectId id);
+    Blog findByID(ObjectId id);
 
 }

@@ -7,27 +7,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class BlogService {
     @Autowired
-     private BlogRepository blogRepository;
-
-    public void saveBlog(Blog blog){
+    private BlogRepository blogRepository;
+    public void saveBlog(Blog blog) {
         blogRepository.save(blog);
     }
-    public List<Blog> getBlog(Blog blog){
+    public List<Blog> getAllBlogs() {
         return blogRepository.findAll();
     }
-    public   Blog deleteBYID( ObjectId id) throws Exception {
-        Optional<Blog> existingBlog = blogRepository.findById(id);
-        if (existingBlog.isPresent()) {
-            return blogRepository.deleteBYID(id);
 
-        } else {
-            throw new Exception("User not found:" + id);
-        }
+    public Blog findById(ObjectId id) throws Exception {
+        return blogRepository.findById(id)
+                .orElseThrow(() -> new Exception("Blog not found: " + id));
+    }
 
+    public Blog deleteById(ObjectId id) throws Exception {
+        Blog blogToDelete = blogRepository.findById(id)
+                .orElseThrow(() -> new Exception("Blog not found: " + id));
+
+        blogRepository.deleteById(id);
+        return blogToDelete;
     }
 }
