@@ -33,4 +33,5 @@ public class BlogController {
         Blog deletedBlog = blogService.deleteById(id);
         return ResponseEntity.ok(deletedBlog);
     }
+    @PutMapping("/{id}")
 }
