@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,8 +34,9 @@ public class BlogService {
         blogRepository.deleteById(id);
         return blogToDelete;
     }
-    public void updateBlog(Blog blog, ObjectId id) throws  Exception{
-        Blog existingBlog = blogRepository.findById(id)
-                .orElseThrow(() -> new Exception("Blog not found: " + id));
+
+    public List<Blog> update( ObjectId id) throws  Exception{
+        return Collections.singletonList(blogRepository.findById(id)
+                .orElseThrow(() -> new Exception("Blog not found: " + id)));
     }
 }
