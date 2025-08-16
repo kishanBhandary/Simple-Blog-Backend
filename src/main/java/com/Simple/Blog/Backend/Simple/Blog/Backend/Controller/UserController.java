@@ -12,6 +12,6 @@ public class UserController {
      private  UserService userService;
     @PostMapping
         public void addUser(User user){
-
+            userService.addUser(user);
         }
 }
