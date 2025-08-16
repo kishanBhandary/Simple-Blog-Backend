@@ -2,10 +2,9 @@ package com.Simple.Blog.Backend.Simple.Blog.Backend.Controller;
 
 import com.Simple.Blog.Backend.Simple.Blog.Backend.Model.User;
 import com.Simple.Blog.Backend.Simple.Blog.Backend.Service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,12 +12,19 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
      private  UserService userService;
-    @PostMapping
-        public void addUser(User user){
-            userService.addUser(user);
+    @PutMapping("/{userName}")
+        public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable String userName){
+
+
+        User byUserName = userService.findByUserName(userName);
+        if(byUserName!=null){
+            byUserName.setUserName(user.getUserName());
+            byUserName.setPassword(user.getPassword());
+            userService.addUser(byUserName);
+            return new ResponseEntity<>(byUserName, HttpStatus.OK);
         }
-    @PutMapping
-    public List<User> updateUser(User user){
-        userService
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
