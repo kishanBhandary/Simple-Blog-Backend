@@ -18,9 +18,9 @@ public class User {
     private ObjectId id;
     @NonNull
     private String userName;
-    @NonNull
     private String password;
     @DBRef
     private List<Blog> blogList=new ArrayList<>();
+    private String role = "ROLE_USER";
 
 }

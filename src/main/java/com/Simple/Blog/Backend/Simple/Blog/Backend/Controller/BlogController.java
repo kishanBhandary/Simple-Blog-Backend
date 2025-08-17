@@ -22,13 +22,13 @@ public class BlogController {
     private UserService userService;
 
 
-    @PostMapping("{/userName}")
+    @PostMapping("/{userName}")
     public ResponseEntity<Blog> addBlog(@RequestBody Blog blog,@PathVariable  String userName) {
         blogService.saveBlog(blog,userName);
         return ResponseEntity.ok(blog);
     }
 
-    @GetMapping("{/userName}")
+    @GetMapping("/{userName}")
     public ResponseEntity<?> getAllBlog(@PathVariable String userName) {
         User user = userService.findByUserName(userName);
         List<Blog> userAllBlogs = user.getBlogList();

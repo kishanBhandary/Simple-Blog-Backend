@@ -20,6 +20,7 @@ public class BlogService {
         User user = userService.findByUserName(userName);
         Blog saved = blogRepository.save(blog);
         user.getBlogList().add(saved);
+        userService.addUser(user);
     }
 
 
