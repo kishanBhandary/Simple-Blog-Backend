@@ -8,16 +8,19 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class BlogService {
     @Autowired
     private BlogRepository blogRepository;
 
-    public void saveBlog(Blog blog) {
+    public void saveBlog(Blog blog, String userName) {
         blogRepository.save(blog);
     }
+
+
+
+
     public List<Blog> getAllBlogs() {
         return blogRepository.findAll();
     }
