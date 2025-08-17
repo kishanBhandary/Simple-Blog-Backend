@@ -1,6 +1,7 @@
 package com.Simple.Blog.Backend.Simple.Blog.Backend.Service;
 
 import com.Simple.Blog.Backend.Simple.Blog.Backend.Model.Blog;
+import com.Simple.Blog.Backend.Simple.Blog.Backend.Model.User;
 import com.Simple.Blog.Backend.Simple.Blog.Backend.Repository.BlogRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,11 @@ public class BlogService {
     @Autowired
     private UserService userService;
     public void saveBlog(Blog blog, String userName) {
-
-        blogRepository.save(blog);
+        User user = userService.findByUserName(userName);
+        Blog saved = blogRepository.save(blog);
+        user.getBlogList().add(saved);
     }
+
 
 
 
