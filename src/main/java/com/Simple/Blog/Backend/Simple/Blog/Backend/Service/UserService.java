@@ -3,14 +3,18 @@ package com.Simple.Blog.Backend.Simple.Blog.Backend.Service;
 import com.Simple.Blog.Backend.Simple.Blog.Backend.Model.User;
 import com.Simple.Blog.Backend.Simple.Blog.Backend.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+private final PasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
 
     public void addUser(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
     public List<User> getAllUser(){
