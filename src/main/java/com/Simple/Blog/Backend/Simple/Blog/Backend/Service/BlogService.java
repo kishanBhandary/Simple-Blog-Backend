@@ -13,8 +13,10 @@ import java.util.List;
 public class BlogService {
     @Autowired
     private BlogRepository blogRepository;
-
+    @Autowired
+    private UserService userService;
     public void saveBlog(Blog blog, String userName) {
+
         blogRepository.save(blog);
     }
 
